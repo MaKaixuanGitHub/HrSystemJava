@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dis.hrsystem.repository.ContractRespository">
+    <select id="findByContract" resultType="com.dis.hrsystem.entity.Contract" parameterType="java.lang.Integer">
+        select "contract_index"       as index,
+                "contract_start_date" as kaisiDate,
+                "contract_end_date"   as shuryouDate,
+                "no_fixed_term_date"  as kigenNasi
+        from em_contract
+        where "employee_num" = #{num}
+	</select>
+
+</mapper>

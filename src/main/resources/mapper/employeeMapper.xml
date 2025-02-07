@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dis.hrsystem.repository.EmployeeRepository">
+    <select id="getUsers" resultType="com.dis.hrsystem.entity.EmployeeDto"
+            parameterType="com.dis.hrsystem.entity.EmployeeParameter">
+        select EB.employee_num,
+        EB.name,
+        EE.department,
+        EE.employment_status,
+        EB.gender,
+        EE.position,
+        EB.marital,
+        EB.have_children,
+        EE.entry_date
+        from em_basic EB,em_employee EE
+        where 1 = 1
+        /*①.员工编号 = 画面.员工编号*/
+        <if test="employeeNum != null and employeeNum != ''">
+            and EB.employee_num = #{employeeNum}
+        </if>
+        /*①.姓名 like %画面.姓名*/
+        <if test="name != null and name != ''">
+            and EB.name like '%${name}%'
+        </if>
+--      /*②.Department = 画面.Department*/
+        <if test="department != null and department != ''">
+            and EE.department = #{department}
+        </if>
+        /*②.在职状态 = 画面.在职状态*/
+        <if test="employmentStatus != null and employmentStatus != ''">
+            and EE.employment_status = #{employmentStatus}
+        </if>
+        and EB.employee_num = EE.employee_num
+    </select>
+
+</mapper>
